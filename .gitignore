@@ -1,0 +1,8 @@
+# 公開しないもの
+_bak/
+_design/
+_demo/
+img/_原本/
+img/p-gameboy.png
+img/うめばぁちゃんのかき氷　2.jpg
+.DS_Store

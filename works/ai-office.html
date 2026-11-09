@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<!-- アクセス解析（Google アナリティクス） -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-JZ1YC4CE18"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag("js", new Date());
+  gtag("config", "G-JZ1YC4CE18");
+</script>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>AIと働くための「AIオフィス」｜鈴木夢 ポートフォリオ</title>
+<meta name="description" content="複数のAIに任せた仕事の状況を、ハムスターが働く4階建てのビルとして一目で分かるようにした自分用のアプリ。何を見せ、どこに置くかを設計しました。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="AIと働くための「AIオフィス」｜鈴木夢 ポートフォリオ">
+<link rel="canonical" href="https://ymr-yumalu.github.io/works/ai-office.html">
+<meta property="og:url" content="https://ymr-yumalu.github.io/works/ai-office.html">
+<meta property="og:description" content="複数のAIに任せた仕事の状況を、ハムスターが働く4階建てのビルとして一目で分かるようにした自分用のアプリ。何を見せ、どこに置くかを設計しました。">
+<meta property="og:image" content="https://ymr-yumalu.github.io/img/ogp.png">
+<meta property="og:site_name" content="鈴木夢 ポートフォリオ">
+<meta property="og:locale" content="ja_JP">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Kiwi+Maru:wght@400;500&family=M+PLUS+Rounded+1c:wght@400;500;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/style.css">
+<style>
+/* このページだけの表（設計の工夫・制作について） */
+.rs-scroll{ overflow-x:auto; margin-top:10px; }
+.rs-table{ width:100%; min-width:560px; border-collapse:separate; border-spacing:0; font-size:.92rem;
+  background:var(--card); border:2px solid var(--rule); border-radius:14px; overflow:hidden; box-shadow:0 6px 0 -1px var(--rule); }
+.rs-table th,.rs-table td{ text-align:left; padding:14px 16px; vertical-align:top; border-bottom:2px dotted var(--rule); }
+.rs-table tbody tr:last-child th,.rs-table tbody tr:last-child td{ border-bottom:0; }
+.rs-table thead th{ font-family:var(--f-m); font-size:11px; letter-spacing:.1em; font-weight:400; color:var(--purple); background:var(--purple-soft); }
+.rs-table tbody th{ font-family:var(--f-d); font-weight:500; color:var(--pink); white-space:nowrap; background:var(--pink-soft); width:9em; }
+.rs-ledger th{ width:9em !important; }
+.en-shots{ display:grid; gap:14px; }
+.of-viewer{ display:grid; gap:14px; }
+.of-viewer video{ width:100%; height:auto; display:block; aspect-ratio:16/10; background:var(--card); }
+.of-bar{ display:grid; gap:14px 22px; grid-template-columns:minmax(0,1fr); align-items:center; }
+@media (min-width:760px){ .of-bar{ grid-template-columns:minmax(0,1fr) 300px; } }
+.of-tabs{ display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; min-width:0;
+  background:var(--card); border:2px solid var(--rule); border-radius:14px; padding:6px; box-shadow:0 6px 0 -1px var(--rule); }
+.of-tabs button{ font:inherit; cursor:pointer; border:0; border-radius:10px; padding:10px 4px; background:transparent; color:var(--ink-2);
+  display:grid; gap:2px; justify-items:center; min-width:0; transition:background .2s,color .2s; }
+.of-tabs button b{ font-family:var(--f-m); font-size:1rem; color:var(--ink); }
+.of-tabs button span{ font-size:.7rem; max-width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.of-tabs button:hover{ background:var(--purple-soft); }
+.of-tabs button.on{ background:var(--pink-soft); color:var(--pink); }
+.of-tabs button.on b{ color:var(--pink); }
+.of-tabs button:focus-visible{ outline:3px solid var(--purple); outline-offset:2px; }
+/* 代表ハムの枠は大きさを固定（ハムの数が変わっても周りが動かない） */
+.of-rep{ display:grid; grid-template-columns:120px minmax(0,1fr); align-items:center; gap:10px; height:72px; min-width:0; }
+.of-rep-imgs{ width:120px; height:64px; display:flex; align-items:flex-end; justify-content:center; }
+.of-rep-imgs img{ height:64px; width:auto; animation:ofhop 1.6s ease-in-out infinite; }
+.of-rep-imgs.n2 img{ height:52px; margin:0 -3px; }
+.of-rep-imgs.n4 img{ height:36px; margin:0 -2px; }
+.of-rep-imgs img:nth-child(2){ animation-delay:.2s } .of-rep-imgs img:nth-child(3){ animation-delay:.4s } .of-rep-imgs img:nth-child(4){ animation-delay:.6s }
+.of-rep p{ margin:0; font-size:.85rem; line-height:1.5; color:var(--ink-2); }
+@keyframes ofhop{ 0%,100%{ transform:translateY(0) } 50%{ transform:translateY(-4px) } }
+@media (prefers-reduced-motion: reduce){ .of-rep-imgs img{ animation:none } }
+
+</style>
+
+
+<script type="application/ld+json">
+{
+  "@context":"https://schema.org",
+  "@type":"CreativeWork",
+  "name":"AIと働くための「AIオフィス」",
+  "creator":{"@type":"Person","name":"鈴木 夢"},
+  "dateCreated":"2026",
+  "genre":"アプリ・情報設計",
+  "keywords":["情報設計","ダッシュボード","AI活用","HTML","JavaScript","Python"],
+  "abstract":"複数のAIに任せた仕事の状況を、4階建てのビルとして一目で分かるようにした自分用のアプリ。"
+}
+</script>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="logo" href="../index.html">
+      <img src="../img/avatar.png" alt="" width="26" height="30">
+      鈴木 夢
+      <small>Lv.25</small>
+    </a>
+    <nav class="site-nav" aria-label="サイト内">
+      <a href="../index.html#top">Top</a>
+      <a href="../index.html#works">Works</a>
+      <a href="../index.html#ai">AI</a>
+      <a href="../index.html#about">About me</a>
+      <a href="../index.html#contact">Contact</a>
+      <span class="nav-arrow" data-at="1" aria-hidden="true">
+        <span class="na-line"></span>
+        <svg class="na-head" viewBox="0 0 14 18">
+          <path d="M4 4 L10 9 L4 14" fill="none" stroke="currentColor"
+                stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </span>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <section class="detail-head">
+    <div class="wrap">
+      <div class="work-index" style="max-width:640px">
+        <span class="num">03</span>
+        <span class="cat">アプリ / 情報設計・自主制作</span>
+        <span class="year">2026 —</span>
+      </div>
+      <h1>AIと働くための<br>「AIオフィス」</h1>
+      <p class="lead" style="max-width:none">
+        複数のAIに仕事を任せていると、「いま誰が何をしていて、自分は何を確認すればいいか」が見えなくなるという悩みがありました。<br>
+        そこで、AIたちの仕事の状況を、ハムスターが働く4階建てのビルとして一目で分かるようにした自分用のアプリを作りました。<br>
+        毎日の仕事で実際に使っています（画面の中身はダミーデータです）。
+      </p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="of-viewer" id="ofv">
+        <video class="shot" id="ofv-video" muted playsinline preload="auto"
+          aria-label="AIオフィスの各階の画面。ハムスターたちが作業し、進み具合のバーとログが少しずつ進んでいく"></video>
+        <div class="of-bar">
+          <div class="of-tabs" role="tablist" aria-label="見る階を選ぶ">
+            <button type="button" role="tab" data-f="1"><b>1F</b><span>受付</span></button>
+            <button type="button" role="tab" data-f="2"><b>2F</b><span>ハム社員</span></button>
+            <button type="button" role="tab" data-f="3"><b>3F</b><span>YouTube部隊</span></button>
+            <button type="button" role="tab" data-f="4"><b>4F</b><span>秘書室</span></button>
+          </div>
+          <div class="of-rep" aria-live="polite">
+            <div class="of-rep-imgs" id="ofv-imgs"></div>
+            <p id="ofv-name"></p>
+          </div>
+        </div>
+      </div>
+      <script>
+      (function(){
+        var F={
+          1:{v:'ai-office-1f',imgs:['ham-secretary','ham-staff1','ham-staff2','ham-chief'],name:'受付：お知らせ・天気・パソコンの余裕'},
+          2:{v:'ai-office-2f',imgs:['ham-staff1','ham-staff2'],name:'ハム社員1・2：映像の切り出しと字幕'},
+          3:{v:'ai-office-3f',imgs:['ham-chief'],name:'部長ハム：YouTubeチャンネル運用'},
+          4:{v:'ai-office-4f',imgs:['ham-secretary'],name:'秘書ハム：ビル全体のやることと確認'}
+        };
+        var root=document.getElementById('ofv'), vid=document.getElementById('ofv-video'),
+            imgs=document.getElementById('ofv-imgs'), name=document.getElementById('ofv-name'),
+            tabs=root.querySelectorAll('[data-f]'), cur=1, auto=true,
+            still=window.matchMedia && matchMedia('(prefers-reduced-motion: reduce)').matches;
+        function show(f){
+          cur=f; var d=F[f];
+          vid.poster='../img/'+d.v+'.jpg'; vid.src='../img/'+d.v+'.mp4'; vid.loop=!auto;
+          if(!still){ var pr=vid.play(); if(pr&&pr.catch) pr.catch(function(){}); } else { vid.controls=true; }
+          imgs.className='of-rep-imgs n'+d.imgs.length;
+          imgs.innerHTML=d.imgs.map(function(n){return '<img src="../img/'+n+'.png" alt="">'}).join('');
+          name.textContent=d.name;
+          tabs.forEach(function(t){var on=+t.dataset.f===f; t.setAttribute('aria-selected',on); t.classList.toggle('on',on)});
+        }
+        vid.addEventListener('ended',function(){ if(auto) show(cur%4+1) });
+        tabs.forEach(function(t){ t.addEventListener('click',function(){ auto=false; show(+t.dataset.f) }) });
+        if(still) auto=false;
+        show(1);
+      })();
+      </script>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <div class="prose" style="max-width:none">
+        <p class="eyebrow">設計で工夫したこと</p>
+        <div class="rs-scroll">
+          <table class="rs-table">
+            <thead>
+              <tr><th scope="col">ねらい</th><th scope="col">工夫したこと</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">場所で覚える</th><td>仕事の種類ごとに階を分け、右下のミニマップで行き来できるようにしました。<br>「切り出しは2階」のように、場所で覚えられます。</td></tr>
+              <tr><th scope="row">状態を形で伝える</th><td>作業中・待機中・お休みを、キャラクターの姿と色で見せています。<br>進み具合はバー、パソコンの余裕はメーターで表しました。</td></tr>
+              <tr><th scope="row">確認を1か所に</th><td>AIからの確認のお願いを4階の掲示板に集め、OK・NG・コメントで返事ができるようにしました。<br>スマートフォン用の確認アプリとも連動しています。</td></tr>
+              <tr><th scope="row">どこからでも見られる</th><td>パソコンの前に座れない日も、スマートフォンやタブレットから同じ画面を見られるようにしました。</td></tr>
+              <tr><th scope="row">手で更新しない</th><td>裏で動く処理が始まる・終わるたびに、席の表示とログが自動で書き換わります。</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <p class="eyebrow" style="margin-top:2em">見えない中身も、同じ階層で</p>
+        <p>画面の4階建ては、目に見えないAIの仕組みをそのまま形にしたものです。<br>
+        全体をまとめる役・チームを動かす役・作業を受け持つ役に分け、ルールも「全員に共通のルール」「担当ごとの決まり」「作業の手順書」の3段に分けて渡しています。</p>
+        <div class="rs-scroll">
+          <table class="rs-table">
+            <thead>
+              <tr><th scope="col">階層</th><th scope="col">画面での姿</th><th scope="col">中でしていること</th></tr>
+            </thead>
+            <tbody>
+              <tr><th scope="row">まとめる</th><td>4階・秘書ハム</td><td>全体の予定と、人に確認したいことを1か所に集める</td></tr>
+              <tr><th scope="row">動かす</th><td>3階・部長ハム</td><td>チームに仕事を割り振り、仕上がりを採点して戻す</td></tr>
+              <tr><th scope="row">作業する</th><td>2階・ハム社員</td><td>切り出しや字幕など、手順が決まった作業を進める</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <p style="margin-top:1.3em">決まった手順で済む作業（切り出し・集計・チェックなど）は、できる限りPythonで仕組み化し、AIには判断が必要なところだけを任せています。<br>
+        同じ処理をいつも同じ結果で回せるので情報が正確になり、AIが読む量も減るため、トークンの使用量も抑えられる設計です。</p>
+
+        <div style="max-width:none">
+          <p class="eyebrow" style="margin-top:2em">AIとの分担</p>
+          <p>何を見せるか、どこに置くか、キャラクターにどの役割を持たせるかは自分で決め、コーディングはAIと一緒に進めました。<br>
+          使いながら気づいたことを毎日少しずつ直して、今の形になっています。<br>
+          <a href="../index.html#ai">AIとの仕事のしかた</a>は別にまとめています。</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap">
+      <p class="eyebrow">この作品について</p>
+      <table class="ledger rs-ledger">
+        <tbody>
+          <tr><th>期間</th><td>2026年11月 —（毎日使用中）</td></tr>
+          <tr><th>種類</th><td>自主制作（自分の仕事のためのアプリ）</td></tr>
+          <tr><th>担当</th><td>企画・情報設計・デザイン</td></tr>
+          <tr><th>使用ツール</th><td>HTML / CSS / JavaScript / Python / Claude</td></tr>
+          <tr><th>画面</th><td>4フロア・ミニマップ・スマートフォン用の確認アプリ</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="wrap back-wrap">
+        <a class="back-btn" href="../index.html#works">
+          <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5 L8 12 L15 19" fill="none"
+            stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          作品目録にもどる
+        </a>
+      </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap"><p>© 2026 YUME SUZUKI</p></div>
+</footer>
+
+<script src="../assets/motion.js" defer></script>
+</body>
+</html>
